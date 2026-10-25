@@ -1,5 +1,7 @@
 # SONIX network weathermap
 
+Hosted at https://sonix-network.github.io/weathermap/. Changes pushed to `main` are tested and deployed automatically by GitHub Actions. The Pages artifact contains only `dist/`.
+
 Run `npm run dev`, then open http://localhost:5173. No install or build is required. `npm run check` runs syntax checks and telemetry tests.
 
 ## Live browser connection
@@ -13,14 +15,14 @@ The query URL accepts a base, instant-query URL, or range-query URL; cluster/ten
 The browser must be able to reach the VictoriaMetrics host and have a valid SONIX session. Cross-origin reads require these response headers from the VictoriaMetrics/auth gateway (including failures):
 
 ```
-Access-Control-Allow-Origin: https://sonix-fabric-weathermap.magichippo17.chatgpt.site
+Access-Control-Allow-Origin: https://sonix-network.github.io
 Access-Control-Allow-Credentials: true
 Vary: Origin
 ```
 
-Use the exact trusted dashboard origin, not `*`, when cookies are enabled. A browser serving the local checkout needs its exact localhost origin permitted too. Requests are simple GETs with an `Accept: application/json` header, so they do not intentionally require a preflight. Long fixed queries are split into bounded URLs with no more than three concurrent requests per query operation.
+Use the exact trusted dashboard origin, not `*`, when cookies are enabled. The `/weathermap/` path is not part of the origin. The earlier Sites preview uses `https://sonix-fabric-weathermap.magichippo17.chatgpt.site`; allow that separately only if it remains in use. A browser serving the local checkout needs its exact localhost origin permitted too. Requests are simple GETs with an `Accept: application/json` header, so they do not intentionally require a preflight. Long fixed queries are split into bounded URLs with no more than three concurrent requests per query operation.
 
-If SONIX cookies use `SameSite=Lax`/`Strict`, or the browser blocks third-party cookies, cross-site session cookies will not be sent from a `chatgpt.site` page. The simplest deployment for session-driven access is to serve `dist/` from the VictoriaMetrics origin (for example `/weathermap/`), which avoids both CORS and third-party cookie requirements. A same-site SONIX host can also work with the appropriate cookie domain and CORS policy. The dashboard does not bypass authentication, change cookie security policy, or store/copy session tokens.
+If SONIX cookies use `SameSite=Lax`/`Strict`, or the browser blocks third-party cookies, cross-site session cookies will not be sent from a `github.io` or `chatgpt.site` page. The simplest deployment for session-driven access is to serve `dist/` from the VictoriaMetrics origin (for example `/weathermap/`), which avoids both CORS and third-party cookie requirements. A same-site SONIX host can also work with the appropriate cookie domain and CORS policy. The dashboard does not bypass authentication, change cookie security policy, or store/copy session tokens.
 
 The private endpoint redirected an unauthenticated API request to SONIX's GitHub sign-in during development. Its authenticated session/CORS combination cannot be confirmed without the user's browser session. Public SONIX metrics at `https://metric.sonix.network` were used to validate actual query names, throughput, measured history, optics, and errors. That public source supports `Access-Control-Allow-Origin: *` and must be used with the cookie checkbox OFF. The app does not silently fall back to that source.
 
@@ -51,3 +53,7 @@ Stockholm schematic: North Kista (IXN), Kista (KG), Bromma (SK1), Östermalm (KN
 Keyboard: `/` focuses search; Escape clears search/site focus; Enter or Space selects map stations/circuits. JSON export contains the currently displayed measured snapshot and source URL.
 
 API reference: https://docs.victoriametrics.com/victoriametrics/url-examples/
+
+## SONIX branding
+
+The logo and favicon in `dist/assets/` are the original assets from https://sonix.network/img/logo.svg and https://sonix.network/img/favicon.ico. The interface uses SONIX blue (`#006aa7`), navy surfaces, and the website’s Space Grotesk / Source Sans 3 typography. Traffic utilization, down-state, and warning colours retain their operational meaning.
