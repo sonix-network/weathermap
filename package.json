@@ -1,1 +1,10 @@
-{"name":"sonix-weathermap","version":"1.0.0","private":true,"type":"module","scripts":{"dev":"python3 -m http.server 5173 --directory dist","check":"node --check dist/app.js"}}
+{
+  "name": "sonix-weathermap",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 5173 --directory dist",
+    "check": "node --check dist/app.js && node --check dist/metrics.js && node --test"
+  }
+}

@@ -57,9 +57,15 @@
       "queryA": "LINK 01 A to B",
       "queryB": "LINK 01 B to A",
       "statusQuery": "LINK 01 status",
-      "tx": 61.6,
-      "rx": 9.2,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-ch-sw2",
+        "interface": "Ethernet120"
+      },
+      "endpointB": {
+        "instance": "ixp-kn7-sw1",
+        "interface": "Ethernet100"
+      },
+      "unpaired": false
     },
     {
       "id": "link-2",
@@ -71,9 +77,15 @@
       "queryA": "LINK 02 A to B",
       "queryB": "LINK 02 B to A",
       "statusQuery": "LINK 02 status",
-      "tx": 0,
-      "rx": 0,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-ch-sw2",
+        "interface": "Ethernet124"
+      },
+      "endpointB": {
+        "instance": "ixp-kn7-sw1",
+        "interface": "Ethernet104"
+      },
+      "unpaired": false
     },
     {
       "id": "link-3",
@@ -85,9 +97,15 @@
       "queryA": "LINK 03 A to B",
       "queryB": "LINK 03 B to A",
       "statusQuery": "LINK 03 status",
-      "tx": 7.15e-08,
-      "rx": 7.15e-08,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-ch-sw2",
+        "interface": "Ethernet128"
+      },
+      "endpointB": {
+        "instance": "ixp-kn7-sw1",
+        "interface": "Ethernet128"
+      },
+      "unpaired": false
     },
     {
       "id": "link-4",
@@ -99,9 +117,15 @@
       "queryA": "LINK 04 A to B",
       "queryB": "LINK 04 B to A",
       "statusQuery": "LINK 04 status",
-      "tx": 7.2e-08,
-      "rx": 7.23e-08,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-ixn-sw2",
+        "interface": "Ethernet0"
+      },
+      "endpointB": {
+        "instance": "ixp-kg-sw2",
+        "interface": "Ethernet240"
+      },
+      "unpaired": false
     },
     {
       "id": "link-5",
@@ -113,9 +137,15 @@
       "queryA": "LINK 05 A to B",
       "queryB": "LINK 05 B to A",
       "statusQuery": "LINK 05 status",
-      "tx": 0,
-      "rx": 0,
-      "state": "down"
+      "endpointA": {
+        "instance": "ixp-ixn-sw2",
+        "interface": "Ethernet160"
+      },
+      "endpointB": {
+        "instance": "ixp-sk1-sw1",
+        "interface": "Ethernet160"
+      },
+      "unpaired": false
     },
     {
       "id": "link-6",
@@ -127,9 +157,15 @@
       "queryA": "LINK 06 A to B",
       "queryB": "LINK 06 B to A",
       "statusQuery": "LINK 06 status",
-      "tx": 36.3,
-      "rx": 31.5,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-ixn-sw2",
+        "interface": "Ethernet240"
+      },
+      "endpointB": {
+        "instance": "ixp-sk1-sw1",
+        "interface": "Ethernet0"
+      },
+      "unpaired": false
     },
     {
       "id": "link-7",
@@ -141,9 +177,15 @@
       "queryA": "LINK 07 A to B",
       "queryB": "LINK 07 B to A",
       "statusQuery": "LINK 07 status",
-      "tx": 1.6,
-      "rx": 7.1,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-ixn-sw2",
+        "interface": "Ethernet248"
+      },
+      "endpointB": {
+        "instance": "ixp-rl-sw1",
+        "interface": "Ethernet240"
+      },
+      "unpaired": false
     },
     {
       "id": "link-8",
@@ -155,9 +197,15 @@
       "queryA": "LINK 08 A to B",
       "queryB": "LINK 08 B to A",
       "statusQuery": "LINK 08 status",
-      "tx": 81.9,
-      "rx": 28.5,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-kg-sw2",
+        "interface": "Ethernet0"
+      },
+      "endpointB": {
+        "instance": "ixp-sk1-sw1",
+        "interface": "Ethernet240"
+      },
+      "unpaired": false
     },
     {
       "id": "link-9",
@@ -169,9 +217,15 @@
       "queryA": "LINK 09 A to B",
       "queryB": "LINK 09 B to A",
       "statusQuery": "LINK 09 status",
-      "tx": 27,
-      "rx": 70.8,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-kg-sw2",
+        "interface": "Ethernet152"
+      },
+      "endpointB": {
+        "instance": "ixp-kn7-sw1",
+        "interface": "Ethernet112"
+      },
+      "unpaired": false
     },
     {
       "id": "link-10",
@@ -183,9 +237,12 @@
       "queryA": "LINK 10 A to B",
       "queryB": "LINK 10 B to A",
       "statusQuery": "LINK 10 status",
-      "tx": 0,
-      "rx": 0,
-      "state": "unpaired"
+      "endpointA": {
+        "instance": "ixp-kg-sw2",
+        "interface": "Ethernet160"
+      },
+      "endpointB": null,
+      "unpaired": true
     },
     {
       "id": "link-11",
@@ -197,9 +254,15 @@
       "queryA": "LINK 11 A to B",
       "queryB": "LINK 11 B to A",
       "statusQuery": "LINK 11 status",
-      "tx": 0.3398,
-      "rx": 0.6258,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-kn7-sw1",
+        "interface": "Ethernet108"
+      },
+      "endpointB": {
+        "instance": "ixp-sk2-sw1",
+        "interface": "Ethernet32"
+      },
+      "unpaired": false
     },
     {
       "id": "link-12",
@@ -211,9 +274,15 @@
       "queryA": "LINK 12 A to B",
       "queryB": "LINK 12 B to A",
       "statusQuery": "LINK 12 status",
-      "tx": 7.21e-08,
-      "rx": 7.21e-08,
-      "state": "up"
+      "endpointA": {
+        "instance": "ixp-rl-sw1",
+        "interface": "Ethernet0"
+      },
+      "endpointB": {
+        "instance": "ixp-sk1-sw1",
+        "interface": "Ethernet8"
+      },
+      "unpaired": false
     },
     {
       "id": "link-13",
@@ -225,9 +294,12 @@
       "queryA": "LINK 13 A to B",
       "queryB": "LINK 13 B to A",
       "statusQuery": "LINK 13 status",
-      "tx": 0,
-      "rx": 0,
-      "state": "unpaired"
+      "endpointA": {
+        "instance": "ixp-sk1-sw1",
+        "interface": "Ethernet168"
+      },
+      "endpointB": null,
+      "unpaired": true
     }
   ]
 }

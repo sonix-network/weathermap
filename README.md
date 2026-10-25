@@ -1,15 +1,53 @@
 # SONIX network weathermap
 
-Run `npm run dev` and open http://localhost:5173. No installation or build step is needed.
+Run `npm run dev`, then open http://localhost:5173. No install or build is required. `npm run check` runs syntax checks and telemetry tests.
 
-A geographically schematic Stockholm network map with separate circuit lanes, a circuit inventory, site and circuit inspection, search by district/device/port, capacity-relative utilization, zoom, fullscreen, JSON export and an illustrative history player. Keyboard: `/` focuses search, Escape clears search/site focus, Enter or Space selects stations/circuits.
+## Live browser connection
 
-## Data provenance
+The dashboard defaults to `https://victoria.local.sonix.network/prometheus` and queries `/api/v1/query` and `/api/v1/query_range` directly from the visitor's browser. There is no backend proxy and no service credential. Click the connection indicator to edit the URL, sign in to SONIX in a separate tab, and retry. Only the URL and cookie-mode preference are stored in localStorage. Queries include the visitor's existing SONIX cookie by default. The optional cookie checkbox can be disabled for an unauthenticated Prometheus-compatible source.
 
-`dist/data/grafana-dashboard.json` preserves the supplied definition, including MetricsQL bindings. `dist/data/topology.json` extracts its seven switches, eleven paired circuits, two unpaired interfaces, port labels and capacities. Throughput and availability are transcribed from the supplied screenshots, not live measurements. Reachability is based on the screenshot's switch styling. Charts and replay values are explicitly illustrative and are not measured history. No period traffic totals are invented. Circuit sum counts traffic across links and is not exchange throughput.
+The query URL accepts a base, instant-query URL, or range-query URL; cluster/tenant path prefixes are preserved. The app discovers either the short `instance` labels from the export or the fully qualified `.sonix.network:9100` labels used by the public SONIX API. It only queries switches and exact physical interfaces from the supplied topology.
 
-Geography follows user-provided districts: North Kista (IXN), Kista (KG), Bromma (SK1), Östermalm (KN7, with CH a few blocks north), Årsta (RL), Sköndal (SK2). Routes and distances are schematic, not fiber routing. Crossings without station squares are not junctions. Unpaired Obe L2VPN interfaces remain independent.
+### Browser access requirements
 
-## Connecting real telemetry
+The browser must be able to reach the VictoriaMetrics host and have a valid SONIX session. Cross-origin reads require these response headers from the VictoriaMetrics/auth gateway (including failures):
 
-The original dashboard queries are in the preserved definition. A production adapter should query VictoriaMetrics server-side, resolve the `LINK nn A to B`, `LINK nn B to A`, node reachability and endpoint carrier bindings, and return timestamped values. Convert bits/s to Gb/s before setting `tx` and `rx`. Preserve missing/unknown state separately from zero throughput and operational-down state. Use actual range-query samples for charts/replay; compute period totals from counters rather than these illustrative curves. Keep credentials server-side and display sample freshness. The supplied export identifies a datasource UID but contains no backend URL or credentials, so this prototype has no live connection.
+```
+Access-Control-Allow-Origin: https://sonix-fabric-weathermap.magichippo17.chatgpt.site
+Access-Control-Allow-Credentials: true
+Vary: Origin
+```
+
+Use the exact trusted dashboard origin, not `*`, when cookies are enabled. A browser serving the local checkout needs its exact localhost origin permitted too. Requests are simple GETs with an `Accept: application/json` header, so they do not intentionally require a preflight. Long fixed queries are split into bounded URLs with no more than three concurrent requests per query operation.
+
+If SONIX cookies use `SameSite=Lax`/`Strict`, or the browser blocks third-party cookies, cross-site session cookies will not be sent from a `chatgpt.site` page. The simplest deployment for session-driven access is to serve `dist/` from the VictoriaMetrics origin (for example `/weathermap/`), which avoids both CORS and third-party cookie requirements. A same-site SONIX host can also work with the appropriate cookie domain and CORS policy. The dashboard does not bypass authentication, change cookie security policy, or store/copy session tokens.
+
+The private endpoint redirected an unauthenticated API request to SONIX's GitHub sign-in during development. Its authenticated session/CORS combination cannot be confirmed without the user's browser session. Public SONIX metrics at `https://metric.sonix.network` were used to validate actual query names, throughput, measured history, optics, and errors. That public source supports `Access-Control-Allow-Origin: *` and must be used with the cookie checkbox OFF. The app does not silently fall back to that source.
+
+## Traffic and history
+
+- Polls live five-minute ASIC counter rates and carrier/exporter state every 30 seconds while visible. Traffic is converted from bytes/s to Gb/s.
+- 1h, 6h and 24h range queries produce measured charts and replay values on an aligned grid, with roughly 60–240 intervals. The history player uses recorded samples. Selecting Live returns to the latest instant query.
+- Readings older than 180 seconds at their evaluation time are unknown. Missing values, stale timestamps, query failures, and zero throughput remain distinct. Charts break at gaps.
+- Source failures produce a sign-in/retry/settings notice and clear current readings. No screenshot values or synthetic curves are used.
+- Traffic sum counts circuit hops, not exchange throughput. Partial coverage is labelled. Each parallel circuit remains separate; unpaired interfaces query only their known local endpoint. Their RX labels represent traffic arriving from the unconfirmed far end at the local port.
+
+## Optics and errors
+
+The circuit inspector has Traffic, Optics, and Errors tabs for both endpoint ports.
+
+Optics query `sfp_eeprom_value` and retain the exporter `property`, `unit`, and `active` labels. RX/TX lane powers, temperature, and laser bias display in the reported units. The UI shows module-exported alarm/warning thresholds and checks matching-unit power/temperature readings against them; inactive lanes are marked inactive. RX/TX dBm range-query histories are charted by lane. Replay shows measured lane power and does not claim historical alarm status from live thresholds. No universal optical threshold or conversion is assumed.
+
+Errors include RX/TX errored packets and discards, FEC corrected/uncorrectable frames, and FEC symbol errors. Rates use `rate(...[5m])`; last-1h/6h/24h totals use counter-reset-aware `increase`. Totals remain fixed while replaying, and their end timestamp is shown. Corrected FEC is not reported as packet loss. Unexported counters show an em dash, not zero.
+
+Metric mappings live in `dist/metrics.js`. They were verified against the SONIX exporter through the public metrics API. The VictoriaMetrics data source must scrape the same names/labels for those diagnostics to appear.
+
+## Geography and source
+
+Stockholm schematic: North Kista (IXN), Kista (KG), Bromma (SK1), Östermalm (KN7, CH a few blocks north), Årsta (RL), Sköndal (SK2). Routes and distances are schematic, not fiber routing. Crossings without station squares are not junctions. Unpaired Obe L2VPN interfaces remain independent.
+
+`dist/data/grafana-dashboard.json` preserves the supplied definition. `dist/data/topology.json` contains its seven switches, eleven paired circuits, two unpaired interfaces, capacities, port labels and exact Ethernet interface mappings. Snapshot measurements have been removed from runtime topology.
+
+Keyboard: `/` focuses search; Escape clears search/site focus; Enter or Space selects map stations/circuits. JSON export contains the currently displayed measured snapshot and source URL.
+
+API reference: https://docs.victoriametrics.com/victoriametrics/url-examples/
