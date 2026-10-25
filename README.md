@@ -57,3 +57,28 @@ API reference: https://docs.victoriametrics.com/victoriametrics/url-examples/
 ## SONIX branding
 
 The header uses the supplied identity package’s white wordmark (`Png/SONIX FINAL 3.png`), and the sidebar uses its transparent blue swirl (`Logo-Trans-Small.png`). These originals are copied unchanged into `dist/assets/` as `sonix-wordmark-white.png` and `sonix-symbol-blue.png`. The earlier website logo and favicon are from https://sonix.network/img/logo.svg and https://sonix.network/img/favicon.ico. The interface uses SONIX blue (`#006aa7`), navy surfaces, and the website’s Space Grotesk / Source Sans 3 typography. Traffic utilization, down-state, and warning colours retain their operational meaning.
+
+## Map-first layout
+
+The topology occupies the first viewport, with a narrow circuit inspector beside it (roughly 85% map and 10% inspector, plus navigation). Summary cards and traffic replay sit below the map. The inspector expands over the map when detailed tables need more width. On small screens it becomes a compact bottom strip with an expandable detail drawer.
+
+### Pomerium example for GitHub Pages
+
+Keep the existing user allowlist and add route-level CORS response headers:
+
+```yaml
+- from: https://victoria.local.sonix.network
+  to: http://[2a0a:d980:1981::1d]:8428
+  allowed_users: *sonix_admins
+  cors_allow_preflight: true
+  set_response_headers:
+    Access-Control-Allow-Origin: "https://sonix-network.github.io"
+    Access-Control-Allow-Credentials: "true"
+    Access-Control-Allow-Methods: "GET, OPTIONS"
+    Access-Control-Allow-Headers: "Accept, Content-Type"
+    Vary: "Origin"
+```
+
+For the current cookie-based client on `github.io`, Pomerium also needs `cookie_same_site: "None"` at the **top level**, outside the route list, so its HTTPS session cookie can accompany cross-site fetches. This setting applies globally. Sign in again after changing it so the cookie is reissued. Browser third-party-cookie blocking may still prevent access; hosting under the SONIX site avoids that dependency.
+
+References: https://www.pomerium.com/docs/internals/troubleshooting and https://www.pomerium.com/docs/reference/cookies .
