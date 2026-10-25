@@ -56,4 +56,4 @@ API reference: https://docs.victoriametrics.com/victoriametrics/url-examples/
 
 ## SONIX branding
 
-The logo and favicon in `dist/assets/` are the original assets from https://sonix.network/img/logo.svg and https://sonix.network/img/favicon.ico. The interface uses SONIX blue (`#006aa7`), navy surfaces, and the website’s Space Grotesk / Source Sans 3 typography. Traffic utilization, down-state, and warning colours retain their operational meaning.
+The header uses the supplied identity package’s white wordmark (`Png/SONIX FINAL 3.png`), and the sidebar uses its transparent blue swirl (`Logo-Trans-Small.png`). These originals are copied unchanged into `dist/assets/` as `sonix-wordmark-white.png` and `sonix-symbol-blue.png`. The earlier website logo and favicon are from https://sonix.network/img/logo.svg and https://sonix.network/img/favicon.ico. The interface uses SONIX blue (`#006aa7`), navy surfaces, and the website’s Space Grotesk / Source Sans 3 typography. Traffic utilization, down-state, and warning colours retain their operational meaning.
