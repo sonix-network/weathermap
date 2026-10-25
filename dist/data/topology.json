@@ -1,0 +1,233 @@
+{
+  "nodes": [
+    {
+      "id": "ixp-ch-sw2",
+      "label": "CH SW2",
+      "site": "City Hosting"
+    },
+    {
+      "id": "ixp-kn7-sw1",
+      "label": "KN7 SW1",
+      "site": "Stokab KN7"
+    },
+    {
+      "id": "ixp-sk2-sw1",
+      "label": "SK2 SW1",
+      "site": "Equinix SK2"
+    },
+    {
+      "id": "ixp-kg-sw2",
+      "label": "KG SW2",
+      "site": "Kista Gate"
+    },
+    {
+      "id": "ixp-ixn-sw2",
+      "label": "IXN SW2",
+      "site": "IXN"
+    },
+    {
+      "id": "ixp-sk1-sw1",
+      "label": "SK1 SW1",
+      "site": "Equinix SK1"
+    },
+    {
+      "id": "ixp-rl-sw1",
+      "label": "RL SW1",
+      "site": "Riverlake"
+    },
+    {
+      "id": "unpaired-ixp-kg-sw2-Ethernet160",
+      "label": "Obe L2VPN \u00b7 unpaired",
+      "site": "Unpaired far end"
+    },
+    {
+      "id": "unpaired-ixp-sk1-sw1-Ethernet168",
+      "label": "Obe L2VPN \u00b7 unpaired",
+      "site": "Unpaired far end"
+    }
+  ],
+  "links": [
+    {
+      "id": "link-1",
+      "a": "ixp-ch-sw2",
+      "b": "ixp-kn7-sw1",
+      "capacity": 100.0,
+      "portA": "ixp-ch-sw2 / hundredGigE1/31 \u00b7 100G COLORZ CH41 DWDM1",
+      "portB": "ixp-kn7-sw1 / hundredGigE1/26 \u00b7 100G COLORZ CH41 DWDM1",
+      "queryA": "LINK 01 A to B",
+      "queryB": "LINK 01 B to A",
+      "statusQuery": "LINK 01 status",
+      "tx": 61.6,
+      "rx": 9.2,
+      "state": "up"
+    },
+    {
+      "id": "link-2",
+      "a": "ixp-ch-sw2",
+      "b": "ixp-kn7-sw1",
+      "capacity": 100.0,
+      "portA": "ixp-ch-sw2 / hundredGigE1/32 \u00b7 100G COLORZ CH41 DWDM2",
+      "portB": "ixp-kn7-sw1 / hundredGigE1/27 \u00b7 100G COLORZ CH41 DWDM2",
+      "queryA": "LINK 02 A to B",
+      "queryB": "LINK 02 B to A",
+      "statusQuery": "LINK 02 status",
+      "tx": 0,
+      "rx": 0,
+      "state": "up"
+    },
+    {
+      "id": "link-3",
+      "a": "ixp-ch-sw2",
+      "b": "ixp-kn7-sw1",
+      "capacity": 10.0,
+      "portA": "ixp-ch-sw2 / tenGigE1/33 \u00b7 10G",
+      "portB": "ixp-kn7-sw1 / tenGigE1/33 \u00b7 10G",
+      "queryA": "LINK 03 A to B",
+      "queryB": "LINK 03 B to A",
+      "statusQuery": "LINK 03 status",
+      "tx": 7.15e-08,
+      "rx": 7.15e-08,
+      "state": "up"
+    },
+    {
+      "id": "link-4",
+      "a": "ixp-ixn-sw2",
+      "b": "ixp-kg-sw2",
+      "capacity": 400.0,
+      "portA": "ixp-ixn-sw2 / QSFP1 \u00b7 400ZR",
+      "portB": "ixp-kg-sw2 / QSFP31 \u00b7 400ZR",
+      "queryA": "LINK 04 A to B",
+      "queryB": "LINK 04 B to A",
+      "statusQuery": "LINK 04 status",
+      "tx": 7.2e-08,
+      "rx": 7.23e-08,
+      "state": "up"
+    },
+    {
+      "id": "link-5",
+      "a": "ixp-ixn-sw2",
+      "b": "ixp-sk1-sw1",
+      "capacity": 100.0,
+      "portA": "ixp-ixn-sw2 / QSFP21 \u00b7 via xpd3/C1",
+      "portB": "ixp-sk1-sw1 / QSFP21 \u00b7 via xpd3/C1",
+      "queryA": "LINK 05 A to B",
+      "queryB": "LINK 05 B to A",
+      "statusQuery": "LINK 05 status",
+      "tx": 0,
+      "rx": 0,
+      "state": "down"
+    },
+    {
+      "id": "link-6",
+      "a": "ixp-ixn-sw2",
+      "b": "ixp-sk1-sw1",
+      "capacity": 400.0,
+      "portA": "ixp-ixn-sw2 / QSFP31 \u00b7 400ZR",
+      "portB": "ixp-sk1-sw1 / QSFP1 \u00b7 400ZR",
+      "queryA": "LINK 06 A to B",
+      "queryB": "LINK 06 B to A",
+      "statusQuery": "LINK 06 status",
+      "tx": 36.3,
+      "rx": 31.5,
+      "state": "up"
+    },
+    {
+      "id": "link-7",
+      "a": "ixp-ixn-sw2",
+      "b": "ixp-rl-sw1",
+      "capacity": 400.0,
+      "portA": "ixp-ixn-sw2 / QSFP32 \u00b7 400ZR",
+      "portB": "ixp-rl-sw1 / QSFP31 \u00b7 400ZR",
+      "queryA": "LINK 07 A to B",
+      "queryB": "LINK 07 B to A",
+      "statusQuery": "LINK 07 status",
+      "tx": 1.6,
+      "rx": 7.1,
+      "state": "up"
+    },
+    {
+      "id": "link-8",
+      "a": "ixp-kg-sw2",
+      "b": "ixp-sk1-sw1",
+      "capacity": 400.0,
+      "portA": "ixp-kg-sw2 / QSFP1 \u00b7 400ZR",
+      "portB": "ixp-sk1-sw1 / QSFP31 \u00b7 400ZR",
+      "queryA": "LINK 08 A to B",
+      "queryB": "LINK 08 B to A",
+      "statusQuery": "LINK 08 status",
+      "tx": 81.9,
+      "rx": 28.5,
+      "state": "up"
+    },
+    {
+      "id": "link-9",
+      "a": "ixp-kg-sw2",
+      "b": "ixp-kn7-sw1",
+      "capacity": 100.0,
+      "portA": "ixp-kg-sw2 / QSFP20 \u00b7 via xpd1/C1",
+      "portB": "ixp-kn7-sw1 / hundredGigE1/29 \u00b7 via xpd1/C1",
+      "queryA": "LINK 09 A to B",
+      "queryB": "LINK 09 B to A",
+      "statusQuery": "LINK 09 status",
+      "tx": 27,
+      "rx": 70.8,
+      "state": "up"
+    },
+    {
+      "id": "link-10",
+      "a": "ixp-kg-sw2",
+      "b": "unpaired-ixp-kg-sw2-Ethernet160",
+      "capacity": 100.0,
+      "portA": "ixp-kg-sw2 / QSFP21 \u00b7 via Obe L2VPN",
+      "portB": "Unpaired far end \u00b7 via Obe L2VPN",
+      "queryA": "LINK 10 A to B",
+      "queryB": "LINK 10 B to A",
+      "statusQuery": "LINK 10 status",
+      "tx": 0,
+      "rx": 0,
+      "state": "unpaired"
+    },
+    {
+      "id": "link-11",
+      "a": "ixp-kn7-sw1",
+      "b": "ixp-sk2-sw1",
+      "capacity": 100.0,
+      "portA": "ixp-kn7-sw1 / hundredGigE1/28 \u00b7 100G BiDi",
+      "portB": "ixp-sk2-sw1 / Eth9/1 \u00b7 100G BiDi",
+      "queryA": "LINK 11 A to B",
+      "queryB": "LINK 11 B to A",
+      "statusQuery": "LINK 11 status",
+      "tx": 0.3398,
+      "rx": 0.6258,
+      "state": "up"
+    },
+    {
+      "id": "link-12",
+      "a": "ixp-rl-sw1",
+      "b": "ixp-sk1-sw1",
+      "capacity": 400.0,
+      "portA": "ixp-rl-sw1 / QSFP1 \u00b7 400ZR",
+      "portB": "ixp-sk1-sw1 / QSFP2 \u00b7 400ZR",
+      "queryA": "LINK 12 A to B",
+      "queryB": "LINK 12 B to A",
+      "statusQuery": "LINK 12 status",
+      "tx": 7.21e-08,
+      "rx": 7.21e-08,
+      "state": "up"
+    },
+    {
+      "id": "link-13",
+      "a": "ixp-sk1-sw1",
+      "b": "unpaired-ixp-sk1-sw1-Ethernet168",
+      "capacity": 100.0,
+      "portA": "ixp-sk1-sw1 / QSFP22 \u00b7 via Obe L2VPN",
+      "portB": "Unpaired far end \u00b7 via Obe L2VPN",
+      "queryA": "LINK 13 A to B",
+      "queryB": "LINK 13 B to A",
+      "statusQuery": "LINK 13 status",
+      "tx": 0,
+      "rx": 0,
+      "state": "unpaired"
+    }
+  ]
+}

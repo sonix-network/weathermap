@@ -1,0 +1,3908 @@
+{
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "sonix-inter-site-weathermap",
+    "namespace": "default",
+    "uid": "f6de6f13-31a8-4fc9-bc4c-f92eedaea066",
+    "resourceVersion": "1792881023583014",
+    "generation": 4,
+    "creationTimestamp": "2026-10-24T22:18:20Z",
+    "labels": {
+      "grafana.app/deprecatedInternalID": "1931100095434752"
+    },
+    "annotations": {
+      "grafana.app/createdBy": "service-account:bg26yll7zuk1sf",
+      "grafana.app/saved-from-ui": "Grafana v13.2.4 (0e79aef9d9)",
+      "grafana.app/updatedBy": "user:u000000010",
+      "grafana.app/updatedTimestamp": "2026-10-24T22:30:23Z"
+    }
+  },
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "query": {
+            "kind": "DataQuery",
+            "group": "grafana",
+            "version": "v0",
+            "datasource": {
+              "name": "-- Grafana --"
+            },
+            "spec": {}
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "builtIn": true
+        }
+      }
+    ],
+    "cursorSync": "Off",
+    "editable": true,
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "id": 1,
+          "title": "Inter-site topology",
+          "description": "Directional ASIC throughput; colors show utilization against circuit capacity. Parallel circuits remain separate. Amber question nodes represent unpaired interfaces, not confirmed far-end connections. Hover links for port/state details and selected-range traffic in TB. Click a node for the detailed link dashboard. Timeline replays throughput and state; period TB totals refer to the whole selected range.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "victoriametrics-metrics-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "ddoyhilbtakn4d"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "union(label_set((max(up{job=\"node\",instance=\"ixp-ch-sw2\"}) or vector(-1)),\"binding\",\"NODE ixp-ch-sw2\"),label_set((max(up{job=\"node\",instance=\"ixp-kn7-sw1\"}) or vector(-1)),\"binding\",\"NODE ixp-kn7-sw1\"),label_set((max(up{job=\"node\",instance=\"ixp-sk2-sw1\"}) or vector(-1)),\"binding\",\"NODE ixp-sk2-sw1\"),label_set((max(up{job=\"node\",instance=\"ixp-kg-sw2\"}) or vector(-1)),\"binding\",\"NODE ixp-kg-sw2\"),label_set((max(up{job=\"node\",instance=\"ixp-ixn-sw2\"}) or vector(-1)),\"binding\",\"NODE ixp-ixn-sw2\"),label_set((max(up{job=\"node\",instance=\"ixp-sk1-sw1\"}) or vector(-1)),\"binding\",\"NODE ixp-sk1-sw1\"),label_set((max(up{job=\"node\",instance=\"ixp-rl-sw1\"}) or vector(-1)),\"binding\",\"NODE ixp-rl-sw1\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet120\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet100\"}[$__rate_interval]))*8)),\"binding\",\"LINK 01 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet120\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet100\"}[$__rate_interval]))*8)),\"binding\",\"LINK 01 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ch-sw2\",device=\"Ethernet120\"}) or vector(-1)),\"binding\",\"LINK 01 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet100\"}) or vector(-1)),\"binding\",\"LINK 01 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ch-sw2\",device=\"Ethernet120\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet100\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 01 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet124\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet104\"}[$__rate_interval]))*8)),\"binding\",\"LINK 02 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet124\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet104\"}[$__rate_interval]))*8)),\"binding\",\"LINK 02 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ch-sw2\",device=\"Ethernet124\"}) or vector(-1)),\"binding\",\"LINK 02 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet104\"}) or vector(-1)),\"binding\",\"LINK 02 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ch-sw2\",device=\"Ethernet124\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet104\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 02 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet128\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet128\"}[$__rate_interval]))*8)),\"binding\",\"LINK 03 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet128\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet128\"}[$__rate_interval]))*8)),\"binding\",\"LINK 03 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ch-sw2\",device=\"Ethernet128\"}) or vector(-1)),\"binding\",\"LINK 03 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet128\"}) or vector(-1)),\"binding\",\"LINK 03 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ch-sw2\",device=\"Ethernet128\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet128\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 03 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet0\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet240\"}[$__rate_interval]))*8)),\"binding\",\"LINK 04 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet0\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet240\"}[$__rate_interval]))*8)),\"binding\",\"LINK 04 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet0\"}) or vector(-1)),\"binding\",\"LINK 04 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet240\"}) or vector(-1)),\"binding\",\"LINK 04 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet0\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet240\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 04 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet160\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet160\"}[$__rate_interval]))*8)),\"binding\",\"LINK 05 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet160\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet160\"}[$__rate_interval]))*8)),\"binding\",\"LINK 05 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet160\"}) or vector(-1)),\"binding\",\"LINK 05 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet160\"}) or vector(-1)),\"binding\",\"LINK 05 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet160\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet160\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 05 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet240\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet0\"}[$__rate_interval]))*8)),\"binding\",\"LINK 06 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet240\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet0\"}[$__rate_interval]))*8)),\"binding\",\"LINK 06 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet240\"}) or vector(-1)),\"binding\",\"LINK 06 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet0\"}) or vector(-1)),\"binding\",\"LINK 06 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet240\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet0\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 06 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet248\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet240\"}[$__rate_interval]))*8)),\"binding\",\"LINK 07 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet248\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet240\"}[$__rate_interval]))*8)),\"binding\",\"LINK 07 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet248\"}) or vector(-1)),\"binding\",\"LINK 07 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-rl-sw1\",device=\"Ethernet240\"}) or vector(-1)),\"binding\",\"LINK 07 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-ixn-sw2\",device=\"Ethernet248\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-rl-sw1\",device=\"Ethernet240\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 07 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet0\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet240\"}[$__rate_interval]))*8)),\"binding\",\"LINK 08 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet0\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet240\"}[$__rate_interval]))*8)),\"binding\",\"LINK 08 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet0\"}) or vector(-1)),\"binding\",\"LINK 08 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet240\"}) or vector(-1)),\"binding\",\"LINK 08 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet0\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet240\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 08 status\"))",
+                        "format": "time_series",
+                        "instant": false,
+                        "legendFormat": "{{binding}}",
+                        "range": true
+                      }
+                    },
+                    "refId": "Q1",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "victoriametrics-metrics-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "ddoyhilbtakn4d"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "union(label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet152\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet112\"}[$__rate_interval]))*8)),\"binding\",\"LINK 09 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet152\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet112\"}[$__rate_interval]))*8)),\"binding\",\"LINK 09 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet152\"}) or vector(-1)),\"binding\",\"LINK 09 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet112\"}) or vector(-1)),\"binding\",\"LINK 09 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet152\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet112\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 09 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet160\"}[$__rate_interval]))*8)),\"binding\",\"LINK 10 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet160\"}[$__rate_interval]))*8)),\"binding\",\"LINK 10 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet160\"}) or vector(-1)),\"binding\",\"LINK 10 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kg-sw2\",device=\"Ethernet160\"}) or vector(-1)),\"binding\",\"LINK 10 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet108\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk2-sw1\",interface=\"Ethernet32\"}[$__rate_interval]))*8)),\"binding\",\"LINK 11 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet108\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk2-sw1\",interface=\"Ethernet32\"}[$__rate_interval]))*8)),\"binding\",\"LINK 11 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet108\"}) or vector(-1)),\"binding\",\"LINK 11 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk2-sw1\",device=\"Ethernet32\"}) or vector(-1)),\"binding\",\"LINK 11 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-kn7-sw1\",device=\"Ethernet108\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk2-sw1\",device=\"Ethernet32\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 11 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet0\"}[$__rate_interval]))*8) or (max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet8\"}[$__rate_interval]))*8)),\"binding\",\"LINK 12 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet0\"}[$__rate_interval]))*8) or (max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet8\"}[$__rate_interval]))*8)),\"binding\",\"LINK 12 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-rl-sw1\",device=\"Ethernet0\"}) or vector(-1)),\"binding\",\"LINK 12 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet8\"}) or vector(-1)),\"binding\",\"LINK 12 B state\"),label_set((min(union(label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-rl-sw1\",device=\"Ethernet0\"}) or vector(-1)),\"side\",\"A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet8\"}) or vector(-1)),\"side\",\"B\")))),\"binding\",\"LINK 12 status\"),label_set(((max(rate(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet168\"}[$__rate_interval]))*8)),\"binding\",\"LINK 13 A to B\"),label_set(((max(rate(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet168\"}[$__rate_interval]))*8)),\"binding\",\"LINK 13 B to A\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet168\"}) or vector(-1)),\"binding\",\"LINK 13 A state\"),label_set((max(node_network_carrier{job=\"node\",instance=\"ixp-sk1-sw1\",device=\"Ethernet168\"}) or vector(-1)),\"binding\",\"LINK 13 status\"))",
+                        "format": "time_series",
+                        "instant": false,
+                        "legendFormat": "{{binding}}",
+                        "range": true
+                      }
+                    },
+                    "refId": "Q2",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "victoriametrics-metrics-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "ddoyhilbtakn4d"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "union(label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet120\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet100\"}[$__range]))/1e12)),\"binding\",\"LINK 01 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet120\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet100\"}[$__range]))/1e12)),\"binding\",\"LINK 01 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet124\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet104\"}[$__range]))/1e12)),\"binding\",\"LINK 02 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet124\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet104\"}[$__range]))/1e12)),\"binding\",\"LINK 02 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet128\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet128\"}[$__range]))/1e12)),\"binding\",\"LINK 03 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ch-sw2\",interface=\"Ethernet128\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet128\"}[$__range]))/1e12)),\"binding\",\"LINK 03 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet0\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet240\"}[$__range]))/1e12)),\"binding\",\"LINK 04 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet0\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet240\"}[$__range]))/1e12)),\"binding\",\"LINK 04 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet160\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet160\"}[$__range]))/1e12)),\"binding\",\"LINK 05 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet160\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet160\"}[$__range]))/1e12)),\"binding\",\"LINK 05 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet240\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet0\"}[$__range]))/1e12)),\"binding\",\"LINK 06 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet240\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet0\"}[$__range]))/1e12)),\"binding\",\"LINK 06 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet248\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet240\"}[$__range]))/1e12)),\"binding\",\"LINK 07 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-ixn-sw2\",interface=\"Ethernet248\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet240\"}[$__range]))/1e12)),\"binding\",\"LINK 07 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet0\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet240\"}[$__range]))/1e12)),\"binding\",\"LINK 08 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet0\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet240\"}[$__range]))/1e12)),\"binding\",\"LINK 08 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet152\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet112\"}[$__range]))/1e12)),\"binding\",\"LINK 09 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet152\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet112\"}[$__range]))/1e12)),\"binding\",\"LINK 09 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet160\"}[$__range]))/1e12)),\"binding\",\"LINK 10 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kg-sw2\",interface=\"Ethernet160\"}[$__range]))/1e12)),\"binding\",\"LINK 10 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet108\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk2-sw1\",interface=\"Ethernet32\"}[$__range]))/1e12)),\"binding\",\"LINK 11 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-kn7-sw1\",interface=\"Ethernet108\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk2-sw1\",interface=\"Ethernet32\"}[$__range]))/1e12)),\"binding\",\"LINK 11 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet0\"}[$__range]))/1e12) or (max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet8\"}[$__range]))/1e12)),\"binding\",\"LINK 12 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-rl-sw1\",interface=\"Ethernet0\"}[$__range]))/1e12) or (max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet8\"}[$__range]))/1e12)),\"binding\",\"LINK 12 B to A TB\"),label_set(((max(increase(sai_port_out_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet168\"}[$__range]))/1e12)),\"binding\",\"LINK 13 A to B TB\"),label_set(((max(increase(sai_port_in_packet_size_bytes_sum{job=\"node\",instance=\"ixp-sk1-sw1\",interface=\"Ethernet168\"}[$__range]))/1e12)),\"binding\",\"LINK 13 B to A TB\"))",
+                        "format": "time_series",
+                        "instant": true,
+                        "legendFormat": "{{binding}}",
+                        "range": false
+                      }
+                    },
+                    "refId": "Q3",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {
+                "maxDataPoints": 180
+              }
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "tamirsuliman-weathermap-panel",
+            "version": "1.6.19",
+            "spec": {
+              "options": {
+                "weathermap": {
+                  "id": "sonix-inter-site-weathermap",
+                  "links": [
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-1",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ch-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-ch-sw2",
+                          "isConnection": false,
+                          "label": "CH SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            650
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-ch-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-ch-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kn7-sw1",
+                          "isConnection": false,
+                          "label": "KN7 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kn7-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kn7-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 1,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ch-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-ch-sw2 / hundredGigE1/31 \u00b7 100G COLORZ CH41 DWDM1",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 01 A to B"
+                        },
+                        "Z": {
+                          "anchor": 2,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kn7-sw1 / hundredGigE1/26 \u00b7 100G COLORZ CH41 DWDM1",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 01 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 01 status",
+                      "stroke": 6,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 01 A to B TB",
+                          "queryZ": "LINK 01 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 01 A state",
+                          "queryZ": "LINK 01 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-2",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ch-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-ch-sw2",
+                          "isConnection": false,
+                          "label": "CH SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            650
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-ch-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-ch-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kn7-sw1",
+                          "isConnection": false,
+                          "label": "KN7 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kn7-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kn7-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 1,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ch-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-ch-sw2 / hundredGigE1/32 \u00b7 100G COLORZ CH41 DWDM2",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 02 A to B"
+                        },
+                        "Z": {
+                          "anchor": 2,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kn7-sw1 / hundredGigE1/27 \u00b7 100G COLORZ CH41 DWDM2",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 02 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 02 status",
+                      "stroke": 6,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 02 A to B TB",
+                          "queryZ": "LINK 02 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 02 A state",
+                          "queryZ": "LINK 02 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-3",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ch-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-ch-sw2",
+                          "isConnection": false,
+                          "label": "CH SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            650
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-ch-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-ch-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kn7-sw1",
+                          "isConnection": false,
+                          "label": "KN7 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kn7-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kn7-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 1,
+                          "bandwidth": 10000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ch-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-ch-sw2 / tenGigE1/33 \u00b7 10G",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 03 A to B"
+                        },
+                        "Z": {
+                          "anchor": 2,
+                          "bandwidth": 10000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kn7-sw1 / tenGigE1/33 \u00b7 10G",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 03 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 03 status",
+                      "stroke": 4,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 03 A to B TB",
+                          "queryZ": "LINK 03 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 03 A state",
+                          "queryZ": "LINK 03 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-4",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-ixn-sw2",
+                          "isConnection": false,
+                          "label": "IXN SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            1190,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-ixn-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-ixn-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kg-sw2",
+                          "isConnection": false,
+                          "label": "KG SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kg-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kg-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 3,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-ixn-sw2 / QSFP1 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 04 A to B"
+                        },
+                        "Z": {
+                          "anchor": 4,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kg-sw2 / QSFP31 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 04 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 04 status",
+                      "stroke": 8,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 04 A to B TB",
+                          "queryZ": "LINK 04 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 04 A state",
+                          "queryZ": "LINK 04 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-5",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-ixn-sw2",
+                          "isConnection": false,
+                          "label": "IXN SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            1190,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-ixn-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-ixn-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-sk1-sw1",
+                          "isConnection": false,
+                          "label": "SK1 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            750
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-sk1-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-sk1-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 3,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-ixn-sw2 / QSFP21 \u00b7 via xpd3/C1",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 05 A to B"
+                        },
+                        "Z": {
+                          "anchor": 4,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-sk1-sw1 / QSFP21 \u00b7 via xpd3/C1",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 05 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 05 status",
+                      "stroke": 6,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 05 A to B TB",
+                          "queryZ": "LINK 05 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 05 A state",
+                          "queryZ": "LINK 05 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-6",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-ixn-sw2",
+                          "isConnection": false,
+                          "label": "IXN SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            1190,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-ixn-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-ixn-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-sk1-sw1",
+                          "isConnection": false,
+                          "label": "SK1 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            750
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-sk1-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-sk1-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 3,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-ixn-sw2 / QSFP31 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 06 A to B"
+                        },
+                        "Z": {
+                          "anchor": 4,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-sk1-sw1 / QSFP1 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 06 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 06 status",
+                      "stroke": 8,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 06 A to B TB",
+                          "queryZ": "LINK 06 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 06 A state",
+                          "queryZ": "LINK 06 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-7",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-ixn-sw2",
+                          "isConnection": false,
+                          "label": "IXN SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            1190,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-ixn-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-ixn-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-rl-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-rl-sw1",
+                          "isConnection": false,
+                          "label": "RL SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            1190,
+                            750
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-rl-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-rl-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 2,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-ixn-sw2 / QSFP32 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 07 A to B"
+                        },
+                        "Z": {
+                          "anchor": 1,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-rl-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-rl-sw1 / QSFP31 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 07 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 07 status",
+                      "stroke": 8,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 07 A to B TB",
+                          "queryZ": "LINK 07 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 07 A state",
+                          "queryZ": "LINK 07 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-8",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kg-sw2",
+                          "isConnection": false,
+                          "label": "KG SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kg-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kg-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-sk1-sw1",
+                          "isConnection": false,
+                          "label": "SK1 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            750
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-sk1-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-sk1-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 2,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kg-sw2 / QSFP1 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 08 A to B"
+                        },
+                        "Z": {
+                          "anchor": 1,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-sk1-sw1 / QSFP31 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 08 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 08 status",
+                      "stroke": 8,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 08 A to B TB",
+                          "queryZ": "LINK 08 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 08 A state",
+                          "queryZ": "LINK 08 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-9",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kg-sw2",
+                          "isConnection": false,
+                          "label": "KG SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kg-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kg-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kn7-sw1",
+                          "isConnection": false,
+                          "label": "KN7 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kn7-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kn7-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 3,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kg-sw2 / QSFP20 \u00b7 via xpd1/C1",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 09 A to B"
+                        },
+                        "Z": {
+                          "anchor": 4,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kn7-sw1 / hundredGigE1/29 \u00b7 via xpd1/C1",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 09 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 09 status",
+                      "stroke": 6,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 09 A to B TB",
+                          "queryZ": "LINK 09 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 09 A state",
+                          "queryZ": "LINK 09 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-10",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kg-sw2",
+                          "isConnection": false,
+                          "label": "KG SW2",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kg-sw2",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kg-sw2",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#292111",
+                            "border": "#f59e0b",
+                            "font": "#fbbf24",
+                            "statusDown": "#f59e0b"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "fontBold": false,
+                          "fontSize": 13,
+                          "id": "unpaired-ixp-kg-sw2-Ethernet160",
+                          "isConnection": false,
+                          "label": "Obe L2VPN \u00b7 unpaired",
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            75
+                          ],
+                          "showLabel": true,
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 1,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kg-sw2 / QSFP21 \u00b7 via Obe L2VPN",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 10 A to B"
+                        },
+                        "Z": {
+                          "anchor": 2,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                          "directionLabel": "Unpaired far end \u00b7 via Obe L2VPN",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 10 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 10 status",
+                      "stroke": 6,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 10 A to B TB",
+                          "queryZ": "LINK 10 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 10 A state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-11",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-kn7-sw1",
+                          "isConnection": false,
+                          "label": "KN7 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            250
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-kn7-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-kn7-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk2-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-sk2-sw1",
+                          "isConnection": false,
+                          "label": "SK2 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            290,
+                            1000
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-sk2-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-sk2-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 3,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-kn7-sw1 / hundredGigE1/28 \u00b7 100G BiDi",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 11 A to B"
+                        },
+                        "Z": {
+                          "anchor": 3,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk2-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-sk2-sw1 / Eth9/1 \u00b7 100G BiDi",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 11 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 11 status",
+                      "stroke": 6,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 11 A to B TB",
+                          "queryZ": "LINK 11 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 11 A state",
+                          "queryZ": "LINK 11 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": [
+                        {
+                          "x": 100,
+                          "y": 250
+                        },
+                        {
+                          "x": 100,
+                          "y": 1000
+                        }
+                      ]
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-12",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-rl-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-rl-sw1",
+                          "isConnection": false,
+                          "label": "RL SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            1190,
+                            750
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-rl-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-rl-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-sk1-sw1",
+                          "isConnection": false,
+                          "label": "SK1 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            750
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-sk1-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-sk1-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 3,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-rl-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-rl-sw1 / QSFP1 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 12 A to B"
+                        },
+                        "Z": {
+                          "anchor": 4,
+                          "bandwidth": 400000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-sk1-sw1 / QSFP2 \u00b7 400ZR",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 12 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 12 status",
+                      "stroke": 8,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 12 A to B TB",
+                          "queryZ": "LINK 12 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 12 A state",
+                          "queryZ": "LINK 12 B state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    },
+                    {
+                      "animation": "disabled",
+                      "arrows": {
+                        "height": 12,
+                        "offset": 2,
+                        "width": 9
+                      },
+                      "cornerRadius": 24,
+                      "id": "link-13",
+                      "nodes": [
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 3
+                            }
+                          },
+                          "colors": {
+                            "background": "#162238",
+                            "border": "#64748b",
+                            "font": "#e2e8f0",
+                            "statusDown": "#ef4444"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "fontBold": true,
+                          "fontSize": 15,
+                          "id": "ixp-sk1-sw1",
+                          "isConnection": false,
+                          "label": "SK1 SW1",
+                          "nodeIcon": {
+                            "drawInside": true,
+                            "name": "networking/switch",
+                            "padding": {
+                              "horizontal": 6,
+                              "vertical": 6
+                            },
+                            "size": {
+                              "height": 34,
+                              "width": 34
+                            },
+                            "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                          },
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            750
+                          ],
+                          "showLabel": true,
+                          "statusQuery": "NODE ixp-sk1-sw1",
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [
+                            {
+                              "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                              "query": "NODE ixp-sk1-sw1",
+                              "units": "short"
+                            }
+                          ],
+                          "useConstantSpacing": true
+                        },
+                        {
+                          "anchors": {
+                            "0": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "1": {
+                              "numFilledLinks": 0,
+                              "numLinks": 1
+                            },
+                            "2": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "3": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            },
+                            "4": {
+                              "numFilledLinks": 0,
+                              "numLinks": 0
+                            }
+                          },
+                          "colors": {
+                            "background": "#292111",
+                            "border": "#f59e0b",
+                            "font": "#fbbf24",
+                            "statusDown": "#f59e0b"
+                          },
+                          "compactVerticalLinks": false,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "fontBold": false,
+                          "fontSize": 13,
+                          "id": "unpaired-ixp-sk1-sw1-Ethernet168",
+                          "isConnection": false,
+                          "label": "Obe L2VPN \u00b7 unpaired",
+                          "nodeStatusColorTarget": "border",
+                          "openInSameTab": true,
+                          "padding": {
+                            "horizontal": 16,
+                            "vertical": 12
+                          },
+                          "position": [
+                            680,
+                            1000
+                          ],
+                          "showLabel": true,
+                          "statusValueMappings": [
+                            {
+                              "color": "#38bdf8",
+                              "value": 1
+                            },
+                            {
+                              "color": "#ef4444",
+                              "value": 0
+                            },
+                            {
+                              "color": "#94a3b8",
+                              "value": -1
+                            }
+                          ],
+                          "tooltipMetrics": [],
+                          "useConstantSpacing": true
+                        }
+                      ],
+                      "showThroughputPercentage": false,
+                      "sides": {
+                        "A": {
+                          "anchor": 2,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "ixp-sk1-sw1 / QSFP22 \u00b7 via Obe L2VPN",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 13 A to B"
+                        },
+                        "Z": {
+                          "anchor": 1,
+                          "bandwidth": 100000000000,
+                          "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                          "directionLabel": "Unpaired far end \u00b7 via Obe L2VPN",
+                          "labelOffset": 60,
+                          "portLabel": "",
+                          "query": "LINK 13 B to A"
+                        }
+                      },
+                      "statusBlink": false,
+                      "statusDownColor": "#ef4444",
+                      "statusQuery": "LINK 13 status",
+                      "stroke": 6,
+                      "tooltipMetrics": [
+                        {
+                          "label": "Selected-range traffic (TB)",
+                          "queryA": "LINK 13 A to B TB",
+                          "queryZ": "LINK 13 B to A TB",
+                          "units": "suffix:TB"
+                        },
+                        {
+                          "label": "Port state (1 up / 0 down / -1 missing)",
+                          "queryA": "LINK 13 A state",
+                          "units": "short"
+                        }
+                      ],
+                      "units": "bps",
+                      "waypoints": []
+                    }
+                  ],
+                  "nodes": [
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 3
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        }
+                      },
+                      "colors": {
+                        "background": "#162238",
+                        "border": "#64748b",
+                        "font": "#e2e8f0",
+                        "statusDown": "#ef4444"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ch-sw2&from=${__from}&to=${__to}",
+                      "fontBold": true,
+                      "fontSize": 15,
+                      "id": "ixp-ch-sw2",
+                      "isConnection": false,
+                      "label": "CH SW2",
+                      "nodeIcon": {
+                        "drawInside": true,
+                        "name": "networking/switch",
+                        "padding": {
+                          "horizontal": 6,
+                          "vertical": 6
+                        },
+                        "size": {
+                          "height": 34,
+                          "width": 34
+                        },
+                        "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                      },
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        290,
+                        650
+                      ],
+                      "showLabel": true,
+                      "statusQuery": "NODE ixp-ch-sw2",
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [
+                        {
+                          "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                          "query": "NODE ixp-ch-sw2",
+                          "units": "short"
+                        }
+                      ],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 3
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        }
+                      },
+                      "colors": {
+                        "background": "#162238",
+                        "border": "#64748b",
+                        "font": "#e2e8f0",
+                        "statusDown": "#ef4444"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kn7-sw1&from=${__from}&to=${__to}",
+                      "fontBold": true,
+                      "fontSize": 15,
+                      "id": "ixp-kn7-sw1",
+                      "isConnection": false,
+                      "label": "KN7 SW1",
+                      "nodeIcon": {
+                        "drawInside": true,
+                        "name": "networking/switch",
+                        "padding": {
+                          "horizontal": 6,
+                          "vertical": 6
+                        },
+                        "size": {
+                          "height": 34,
+                          "width": 34
+                        },
+                        "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                      },
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        290,
+                        250
+                      ],
+                      "showLabel": true,
+                      "statusQuery": "NODE ixp-kn7-sw1",
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [
+                        {
+                          "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                          "query": "NODE ixp-kn7-sw1",
+                          "units": "short"
+                        }
+                      ],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        }
+                      },
+                      "colors": {
+                        "background": "#162238",
+                        "border": "#64748b",
+                        "font": "#e2e8f0",
+                        "statusDown": "#ef4444"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk2-sw1&from=${__from}&to=${__to}",
+                      "fontBold": true,
+                      "fontSize": 15,
+                      "id": "ixp-sk2-sw1",
+                      "isConnection": false,
+                      "label": "SK2 SW1",
+                      "nodeIcon": {
+                        "drawInside": true,
+                        "name": "networking/switch",
+                        "padding": {
+                          "horizontal": 6,
+                          "vertical": 6
+                        },
+                        "size": {
+                          "height": 34,
+                          "width": 34
+                        },
+                        "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                      },
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        290,
+                        1000
+                      ],
+                      "showLabel": true,
+                      "statusQuery": "NODE ixp-sk2-sw1",
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [
+                        {
+                          "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                          "query": "NODE ixp-sk2-sw1",
+                          "units": "short"
+                        }
+                      ],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        }
+                      },
+                      "colors": {
+                        "background": "#162238",
+                        "border": "#64748b",
+                        "font": "#e2e8f0",
+                        "statusDown": "#ef4444"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                      "fontBold": true,
+                      "fontSize": 15,
+                      "id": "ixp-kg-sw2",
+                      "isConnection": false,
+                      "label": "KG SW2",
+                      "nodeIcon": {
+                        "drawInside": true,
+                        "name": "networking/switch",
+                        "padding": {
+                          "horizontal": 6,
+                          "vertical": 6
+                        },
+                        "size": {
+                          "height": 34,
+                          "width": 34
+                        },
+                        "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                      },
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        680,
+                        250
+                      ],
+                      "showLabel": true,
+                      "statusQuery": "NODE ixp-kg-sw2",
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [
+                        {
+                          "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                          "query": "NODE ixp-kg-sw2",
+                          "units": "short"
+                        }
+                      ],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 3
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        }
+                      },
+                      "colors": {
+                        "background": "#162238",
+                        "border": "#64748b",
+                        "font": "#e2e8f0",
+                        "statusDown": "#ef4444"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-ixn-sw2&from=${__from}&to=${__to}",
+                      "fontBold": true,
+                      "fontSize": 15,
+                      "id": "ixp-ixn-sw2",
+                      "isConnection": false,
+                      "label": "IXN SW2",
+                      "nodeIcon": {
+                        "drawInside": true,
+                        "name": "networking/switch",
+                        "padding": {
+                          "horizontal": 6,
+                          "vertical": 6
+                        },
+                        "size": {
+                          "height": 34,
+                          "width": 34
+                        },
+                        "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                      },
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        1190,
+                        250
+                      ],
+                      "showLabel": true,
+                      "statusQuery": "NODE ixp-ixn-sw2",
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [
+                        {
+                          "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                          "query": "NODE ixp-ixn-sw2",
+                          "units": "short"
+                        }
+                      ],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 3
+                        }
+                      },
+                      "colors": {
+                        "background": "#162238",
+                        "border": "#64748b",
+                        "font": "#e2e8f0",
+                        "statusDown": "#ef4444"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                      "fontBold": true,
+                      "fontSize": 15,
+                      "id": "ixp-sk1-sw1",
+                      "isConnection": false,
+                      "label": "SK1 SW1",
+                      "nodeIcon": {
+                        "drawInside": true,
+                        "name": "networking/switch",
+                        "padding": {
+                          "horizontal": 6,
+                          "vertical": 6
+                        },
+                        "size": {
+                          "height": 34,
+                          "width": 34
+                        },
+                        "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                      },
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        680,
+                        750
+                      ],
+                      "showLabel": true,
+                      "statusQuery": "NODE ixp-sk1-sw1",
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [
+                        {
+                          "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                          "query": "NODE ixp-sk1-sw1",
+                          "units": "short"
+                        }
+                      ],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        }
+                      },
+                      "colors": {
+                        "background": "#162238",
+                        "border": "#64748b",
+                        "font": "#e2e8f0",
+                        "statusDown": "#ef4444"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-rl-sw1&from=${__from}&to=${__to}",
+                      "fontBold": true,
+                      "fontSize": 15,
+                      "id": "ixp-rl-sw1",
+                      "isConnection": false,
+                      "label": "RL SW1",
+                      "nodeIcon": {
+                        "drawInside": true,
+                        "name": "networking/switch",
+                        "padding": {
+                          "horizontal": 6,
+                          "vertical": 6
+                        },
+                        "size": {
+                          "height": 34,
+                          "width": 34
+                        },
+                        "src": "public/plugins/tamirsuliman-weathermap-panel/icons/networking/switch.svg"
+                      },
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        1190,
+                        750
+                      ],
+                      "showLabel": true,
+                      "statusQuery": "NODE ixp-rl-sw1",
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [
+                        {
+                          "label": "Exporter up (1=yes, 0=no, -1=missing)",
+                          "query": "NODE ixp-rl-sw1",
+                          "units": "short"
+                        }
+                      ],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        }
+                      },
+                      "colors": {
+                        "background": "#292111",
+                        "border": "#f59e0b",
+                        "font": "#fbbf24",
+                        "statusDown": "#f59e0b"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-kg-sw2&from=${__from}&to=${__to}",
+                      "fontBold": false,
+                      "fontSize": 13,
+                      "id": "unpaired-ixp-kg-sw2-Ethernet160",
+                      "isConnection": false,
+                      "label": "Obe L2VPN \u00b7 unpaired",
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        680,
+                        75
+                      ],
+                      "showLabel": true,
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [],
+                      "useConstantSpacing": true
+                    },
+                    {
+                      "anchors": {
+                        "0": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "1": {
+                          "numFilledLinks": 0,
+                          "numLinks": 1
+                        },
+                        "2": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "3": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        },
+                        "4": {
+                          "numFilledLinks": 0,
+                          "numLinks": 0
+                        }
+                      },
+                      "colors": {
+                        "background": "#292111",
+                        "border": "#f59e0b",
+                        "font": "#fbbf24",
+                        "statusDown": "#f59e0b"
+                      },
+                      "compactVerticalLinks": false,
+                      "dashboardLink": "/d/sonix-inter-site-links/inter-site-links?var-switch=ixp-sk1-sw1&from=${__from}&to=${__to}",
+                      "fontBold": false,
+                      "fontSize": 13,
+                      "id": "unpaired-ixp-sk1-sw1-Ethernet168",
+                      "isConnection": false,
+                      "label": "Obe L2VPN \u00b7 unpaired",
+                      "nodeStatusColorTarget": "border",
+                      "openInSameTab": true,
+                      "padding": {
+                        "horizontal": 16,
+                        "vertical": 12
+                      },
+                      "position": [
+                        680,
+                        1000
+                      ],
+                      "showLabel": true,
+                      "statusValueMappings": [
+                        {
+                          "color": "#38bdf8",
+                          "value": 1
+                        },
+                        {
+                          "color": "#ef4444",
+                          "value": 0
+                        },
+                        {
+                          "color": "#94a3b8",
+                          "value": -1
+                        }
+                      ],
+                      "tooltipMetrics": [],
+                      "useConstantSpacing": true
+                    }
+                  ],
+                  "scale": [
+                    {
+                      "color": "#475569",
+                      "percent": 0
+                    },
+                    {
+                      "color": "#22c55e",
+                      "percent": 1
+                    },
+                    {
+                      "color": "#84cc16",
+                      "percent": 40
+                    },
+                    {
+                      "color": "#facc15",
+                      "percent": 70
+                    },
+                    {
+                      "color": "#fb923c",
+                      "percent": 85
+                    },
+                    {
+                      "color": "#ef4444",
+                      "percent": 95
+                    }
+                  ],
+                  "settings": {
+                    "animation": {
+                      "enabled": true,
+                      "respectReducedMotion": true
+                    },
+                    "colorScaleMode": "percent",
+                    "fontSizing": {
+                      "link": 11,
+                      "node": 15
+                    },
+                    "link": {
+                      "defaultUnits": "bps",
+                      "flowAnimation": {
+                        "enabled": false,
+                        "speed": 1
+                      },
+                      "hoverHighlight": true,
+                      "label": {
+                        "background": "#0f172a",
+                        "border": "#334155",
+                        "font": "#e2e8f0"
+                      },
+                      "labelCollision": true,
+                      "labelHideZoom": 3,
+                      "linkDecimals": 1,
+                      "showAllWithPercentage": false,
+                      "spacing": {
+                        "horizontal": 60,
+                        "vertical": 48
+                      },
+                      "stroke": {
+                        "color": "#475569"
+                      },
+                      "timeline": {
+                        "enabled": true
+                      },
+                      "valueMappingMode": "last"
+                    },
+                    "panel": {
+                      "backgroundColor": "#0b1220",
+                      "grid": {
+                        "enabled": false,
+                        "guidesEnabled": false,
+                        "size": 10
+                      },
+                      "offset": {
+                        "x": 0,
+                        "y": 0
+                      },
+                      "panelSize": {
+                        "height": 1150,
+                        "width": 1450
+                      },
+                      "showTimestamp": true,
+                      "viewZoomPan": true,
+                      "zoomScale": 0
+                    },
+                    "scale": {
+                      "backgroundColor": "#0f172a",
+                      "fontColor": "#e2e8f0",
+                      "fontSizing": {
+                        "threshold": 12,
+                        "title": 15
+                      },
+                      "position": {
+                        "x": 88,
+                        "y": 75
+                      },
+                      "size": {
+                        "height": 190,
+                        "width": 72
+                      },
+                      "title": "Utilization"
+                    },
+                    "statusLegend": {
+                      "enabled": true,
+                      "items": [
+                        {
+                          "color": "#38bdf8",
+                          "label": "Switch reachable"
+                        },
+                        {
+                          "color": "#ef4444",
+                          "label": "Down / unavailable link"
+                        },
+                        {
+                          "color": "#f59e0b",
+                          "label": "Unpaired far end"
+                        }
+                      ],
+                      "position": {
+                        "x": 75,
+                        "y": 3
+                      }
+                    },
+                    "tooltip": {
+                      "backgroundColor": "#0f172a",
+                      "fontSize": 12,
+                      "inboundColor": "#38bdf8",
+                      "outboundColor": "#a78bfa",
+                      "scaleToBandwidth": true,
+                      "textColor": "#e2e8f0"
+                    }
+                  },
+                  "version": 14
+                }
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "GridLayout",
+      "spec": {
+        "items": [
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 0,
+              "width": 24,
+              "height": 36,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-1"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "links": [
+      {
+        "title": "Detailed link status and traffic",
+        "type": "link",
+        "icon": "",
+        "tooltip": "",
+        "url": "/d/sonix-inter-site-links/inter-site-links",
+        "tags": [],
+        "asDropdown": false,
+        "targetBlank": false,
+        "includeVars": false,
+        "keepTime": true
+      }
+    ],
+    "liveNow": false,
+    "preload": false,
+    "tags": [
+      "sonix",
+      "network",
+      "weathermap",
+      "inter-site"
+    ],
+    "timeSettings": {
+      "timezone": "browser",
+      "from": "now-1h",
+      "to": "now",
+      "autoRefresh": "1m",
+      "autoRefreshIntervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "hideTimepicker": false,
+      "fiscalYearStartMonth": 0
+    },
+    "title": "Inter-site Weathermap",
+    "variables": []
+  }
+}
